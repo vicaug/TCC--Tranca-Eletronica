@@ -16,6 +16,7 @@ count=0
 Arg1 = ""
 Arg2 = ""
 
+
 def pins_export(msg_porta, mgs_type):
 
         concat = ("/gpio"+msg_porta)
@@ -30,7 +31,7 @@ def pins_export(msg_porta, mgs_type):
         fp1.write(str(mgs_type))
         fp1.close()
 
-def write_led(value, msg_porta):
+def write_function(value, msg_porta):
 
 	concat = ("/gpio"+msg_porta)
 
@@ -54,16 +55,21 @@ def string_split(msg):
     verificar_comando(msg_comando, msg_porta)
 
 def verificar_comando(msg_comando, msg_porta):
+    global temp_value
     if (msg_comando == "Ligar"):
         #print("Liguei a luz")
-        write_led(1, msg_porta)
+        write_function(1, msg_porta)
         time.sleep(2)
-        return True
+        return 0
     if(msg_comando == "Desligar"):
         #print("Desliguei a luz")
-        write_led(0, msg_porta)
+        write_function(0, msg_porta)
 	time.sleep(2)
-	return False
+	return 1
+
+    if(msg_comando == "Atualizar"):
+        temp_value = analogRead(msg_porta); 
+        return 2
 
 
 def send_broadcast_message(msg, sender) :
@@ -71,11 +77,14 @@ def send_broadcast_message(msg, sender) :
 
     string_split(msg)
 
-    if(verificar_comando == True):
+    if(verificar_comando == 0):
     	print("Liguei a luz")
 
-    if(verificar_comando == False):
+    if(verificar_comando == 1):
     	print("Desliguei a luz")
+
+    if(verificar_comando == 2):
+        print(str(temp_value))
 
     global count
     count = count + 1
