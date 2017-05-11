@@ -8,4 +8,8 @@ Server Parametro v3 - Upgrade no v2 para uma tentativa falha em executar a leitu
 
 Server_Parametro_v4 - Upgrade no v2 para uma leitura da temperatura usando a biblioteca wiring_x86.
 
+Dicionario GPIO - Arquivo do tipo dicionário que será acessado pelo servidor para obter o mapeamento da GPIO do Galileo Gen2.
+
+Switch Case com dicionario - Arquivo exemplo de um switch case com Dicionários em python.
+
 
